@@ -130,17 +130,21 @@
 
     <div class="container">
         <form id="form1">
-            <input type="radio" id="curto" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-            <label>Curto</label>
+            <div style="display: table-caption">
+                <input type="radio" id="curto" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
+                <label>Curto</label>
 
-            <input type="radio" id="medio" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-            <label>Médio</label>
+                <input type="radio" id="longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
+                <label>Longo</label>
+            </div>
 
-            <input type="radio" id="longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-            <label>Longo</label>
+            <div style="display: table-row">
+                <input type="radio" id="medio" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
+                <label>Médio</label>
 
-            <input type="radio" id="x-longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-            <label>X-Longo</label>
+                <input type="radio" id="x-longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
+                <label>X-Longo</label>
+            </div>
         </form>
     </div>
 
@@ -261,7 +265,7 @@
             </div>
         </form>
     </div>
-    
+
     <h2><b>Alisamentos</b></h2>
 
     <div class="container">
@@ -296,38 +300,38 @@
     <p id="netmask" style="display: none">Net Mask</p>
     <p id="booster" style="display: none">Ultra Booster</p>
     <p id="infusion" style="display: none">Infusion</p>
-    
+
     <div class="container" style="padding-top: 30px">
         <div class="button" id="button-3" onclick="resetar()">
             <div id="circle"></div>
             <a>Recomeçar</a>
         </div>
-        
+
     </div>
 </body>
 
 <script>
     var serviços = false;
     var checkboxes = document.getElementsByTagName('input');
-    
+
     /* Tabela de valores e serviços */
-    
+
     var cabeloCurto = ["20,00", "20,00", "25,00", "50,00", "30,00", "20,00", "30,00", "70,00", "40,00", "35,00", "150,00", "180,00", "200,00", "50,00",
-                      "80,00"];
-    
+                       "80,00"];
+
     var cabeloMedio = ["25,00", "25,00", "50,00", "100,00", "35,00", "25,00", "35,00", "100,00", "80,00", "50,00", "180,00", "200,00", "230,00", "80,00",
-                      "100,00"];
-    
+                       "100,00"];
+
     var cabeloLongo = ["30,00", "30,00", "75,00", "150,00", "40,00", "30,00", "40,00", "150,00", "120,00", "75,00", "200,00", "250,00", "300,00", "100,00",
-                      "120,00"];
-    
+                       "120,00"];
+
     var cabeloXlongo = ["40,00", "35,00", "100,00", "200,00", "50,00", "40,00", "45,00", "200,00", "150,00", "100,00", "250,00", "300,00", "350,00", "150,00",
-                       "150,00"];
-    
+                        "150,00"];
+
     var tratamentos = ["escova", "recSimples", "recMedia", "recForte", "limpeza",
-                      "hidraSimples", "hidraForte", "nutricao", "aminoacidos", "coloracao",
-                      "mechasMorena", "mechasLoira", "global", "relaxamento", "alisamento"];
-    
+                       "hidraSimples", "hidraForte", "nutricao", "aminoacidos", "coloracao",
+                       "mechasMorena", "mechasLoira", "global", "relaxamento", "alisamento"];
+
     /* Atribuir valores */
 
     function atribuirValores(){
@@ -337,21 +341,21 @@
                 document.getElementById(tratamentos[index]).setAttribute("value", cabeloCurto[index]);
             }
         }
-        
+
         else if(document.getElementById("medio").checked){
             serviços = true;
             for(index = 0; index < tratamentos.length; index++){
                 document.getElementById(tratamentos[index]).setAttribute("value", cabeloMedio[index]);
             }
         }
-        
+
         else if(document.getElementById("longo").checked){
             serviços = true;
             for(index = 0; index < tratamentos.length; index++){
                 document.getElementById(tratamentos[index]).setAttribute("value", cabeloLongo[index]);
             }
         }
-        
+
         else if(document.getElementById("x-longo").checked){
             serviços = true;
             for(index = 0; index < tratamentos.length; index++){
@@ -371,21 +375,21 @@
         }
         serviços = true;
     }
-    
+
     /* Exibir produtos em tempo real */
-    
+
     var shampoo = 0, obrigatorio = 0, intense = 0, reconstruction = 0, keratin = 0, lipidic = 0,
         nomental = 0, scrub = 0, therapy = 0, netmask = 0, booster = 0, infusion = 0;
-    
+
     var produtosID = ["shampoo", "obrigatorio", "intense", "reconstruction", "keratin", "lipidic", "nomental", "scrub",
-                     "therapy", "netmask", "booster", "infusion"];
-    
+                      "therapy", "netmask", "booster", "infusion"];
+
     var produtos = ["Shampoo Bidimensional 2 MIN", "Uso Obrigatório 10 MIN", "Intensive Nutrition 5 MIN", 
                     "Deep Reconstruction 15 MIN", "Keratin Recovery 10 MIN", "Lipidic 10 MIN", "Shampoo No mental 2MIN",
-                   "Scrub Therapy 5MIN", "Shampoo Therapy 2MIN", "Net Mask", "Ultra Booster", "Infusion"];
-    
+                    "Scrub Therapy 5MIN", "Shampoo Therapy 2MIN", "Net Mask", "Ultra Booster", "Infusion"];
+
     var mult = 1;
-    
+
     function exibirProdutos(id){
         if(id == "recSimples"){
             if(document.getElementById(id).checked){
@@ -399,7 +403,7 @@
                 intense --;
             }
         }
-        
+
         if(id == "recMedia"){
             if(document.getElementById(id).checked){
                 shampoo ++;
@@ -412,7 +416,7 @@
                 intense --;
             }
         }
-        
+
         if(id == "recForte"){
             if(document.getElementById(id).checked){
                 shampoo ++;
@@ -427,15 +431,15 @@
                 intense --;
             }
         }
-        
+
         if(id == "limpeza"){
             if(document.getElementById(id).checked){
                 mult = prompt("Quantas vezes deseja fazer a limpeza?");
-                
+
                 nomental ++;
                 reconstruction ++;
                 intense ++;
-                
+
                 nomental = nomental * mult;
                 reconstruction = reconstruction * mult;
                 intense = intense * mult;
@@ -444,13 +448,13 @@
                 nomental = 1;
                 reconstruction = 1;
                 intense = 1;
-                
+
                 nomental --;
                 reconstruction --;
                 intense --;
             }
         }
-        
+
         if(id == "terapia"){
             if(document.getElementById(id).checked){
                 scrub ++;
@@ -465,7 +469,7 @@
                 intense --;
             }
         }
-        
+
         if(id == "hidraSimples"){
             if(document.getElementById(id).checked){
                 shampoo ++;
@@ -476,7 +480,7 @@
                 netmask --;
             }
         }
-        
+
         if(id == "hidraForte"){
             if(document.getElementById(id).checked){
                 shampoo ++;
@@ -489,7 +493,7 @@
                 booster --;
             }
         }
-        
+
         if(id == "nutricao"){
             if(document.getElementById(id).checked){
                 infusion ++;
@@ -502,10 +506,10 @@
                 shampoo --;
             }
         }
-        
+
         var quantidade = [shampoo, obrigatorio, intense, reconstruction, keratin, lipidic, nomental, scrub, therapy, 
                           netmask, booster];
-        
+
         for(index = 0; index < quantidade.length; index ++){
             if(quantidade[index] > 0){
                 if(quantidade[index] > 1){
@@ -522,31 +526,31 @@
             }
         }
     }
-    
+
     /* Resetar o aplicativo */
 
     function resetar(){
         for(index = 1; index < 6; index++){
             document.getElementById("form" + index).reset();
         }
-        
+
         for(index = 4; index < checkboxes.length; index++){
             document.getElementById(checkboxes[index].id).setAttribute("disabled", "disabled");
         }
-        
+
         for(index = 0; index < produtos.length; index++){
             document.getElementById(produtosID[index]).style.display = "none";
         }
-        
+
         shampoo = 0, obrigatorio = 0, intense = 0, reconstruction = 0, keratin = 0, lipidic = 0,
-        nomental = 0, scrub = 0, therapy = 0, netmask = 0, booster = 0, infusion = 0;
-        
+            nomental = 0, scrub = 0, therapy = 0, netmask = 0, booster = 0, infusion = 0;
+
         document.getElementById("valorTotal").innerHTML = "Valor total: R$ 0";
 
         resultado = 0;
         serviços = false;       
     }
-    
+
     /* Exibir valor em tempo real */
 
     function exibirValor(){
@@ -560,7 +564,7 @@
             }
         }
     }
-    
+
     document.getElementById("form1").onchange = exibirValor;
 
 </script>
