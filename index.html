@@ -457,6 +457,7 @@
             if(document.getElementById(id).checked){
                 mult = prompt("Quantas vezes deseja fazer a limpeza?");
                 if(!mult || mult == 0){
+                    mult = 0;
                     document.getElementById("limpeza").checked = false;
                 }
             }
@@ -579,5 +580,5 @@
     }
 
     document.getElementById("form1").onchange = exibirValor;
-
+    
 </script>
