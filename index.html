@@ -1,5 +1,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="tyler_icon.png">
+<meta name="apple-mobile-web-app-title" content="TylersHair">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <style>
     @import url('https://fonts.googleapis.com/css?family=Raleway:300,400');
     body {
@@ -22,7 +26,7 @@
     h2 {
         font-size: 1.5em;
         text-align: center;
-        padding: 30px 0 0 0;
+        padding: 20px 0 0 0;
         color: #EF8354;
         font-weight: 300;
         letter-spacing: 1px;
@@ -49,6 +53,13 @@
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+    }
+
+    .container2 {
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px 0 0 0;
+        display: flex;
     }
 
     /* Button Styles */
@@ -82,8 +93,7 @@
     }
 
     input{
-        margin-left: 25px;
-        margin-right: 5px;
+
     }
 
     /* Botão */
@@ -123,6 +133,16 @@
     #button-3:hover a {
         color: #2D3142;
     }
+
+    #curtoMedio{
+        float: left;
+        margin-right: 20px;
+    }
+
+    #longoXlongo{
+        float: left;
+    }
+
 </style>
 
 <body>
@@ -130,17 +150,17 @@
 
     <div class="container">
         <form id="form1">
-            <div style="display: table-caption">
+            <div id="curtoMedio">
                 <input type="radio" id="curto" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-                <label>Curto</label>
+                <label>Curto</label><br>
 
-                <input type="radio" id="longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
-                <label>Longo</label>
-            </div>
-
-            <div style="display: table-row">
                 <input type="radio" id="medio" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
                 <label>Médio</label>
+            </div>
+
+            <div id="longoXlongo">
+                <input type="radio" id="longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
+                <label>Longo</label><br>
 
                 <input type="radio" id="x-longo" value="0" name="cabelo" onclick="liberarServiços(); atribuirValores()">
                 <label>X-Longo</label>
@@ -388,7 +408,7 @@
                     "Deep Reconstruction 15 MIN", "Keratin Recovery 10 MIN", "Lipidic 10 MIN", "Shampoo No mental 2MIN",
                     "Scrub Therapy 5MIN", "Shampoo Therapy 2MIN", "Net Mask", "Ultra Booster", "Infusion"];
 
-    var mult = 1;
+    var mult = 0;
 
     function exibirProdutos(id){
         if(id == "recSimples"){
@@ -435,23 +455,12 @@
         if(id == "limpeza"){
             if(document.getElementById(id).checked){
                 mult = prompt("Quantas vezes deseja fazer a limpeza?");
-
-                nomental ++;
-                reconstruction ++;
-                intense ++;
-
-                nomental = nomental * mult;
-                reconstruction = reconstruction * mult;
-                intense = intense * mult;
+                if(!mult || mult == 0){
+                    document.getElementById("limpeza").checked = false;
+                }
             }
             else{
-                nomental = 1;
-                reconstruction = 1;
-                intense = 1;
-
-                nomental --;
-                reconstruction --;
-                intense --;
+                mult = 0;
             }
         }
 
@@ -507,8 +516,7 @@
             }
         }
 
-        var quantidade = [shampoo, obrigatorio, intense, reconstruction, keratin, lipidic, nomental, scrub, therapy, 
-                          netmask, booster, infusion];
+        var quantidade = [shampoo, obrigatorio, (intense + parseInt(mult)), (reconstruction + parseInt(mult)), keratin, lipidic, (nomental + parseInt(mult)), scrub, therapy, netmask, booster, infusion];
 
         for(index = 0; index < quantidade.length; index ++){
             if(quantidade[index] > 0){
@@ -558,7 +566,10 @@
         if(serviços == true){
             for(index = 0; index < checkboxes.length; index++){
                 if(checkboxes[index].checked){
-                    valor += (parseInt(checkboxes[index].value) * parseInt(mult));
+                    if(checkboxes[index].id == "limpeza"){
+                        valor += parseInt(checkboxes[index].value) * (parseInt(mult) - 1);
+                    }
+                    valor += (parseInt(checkboxes[index].value));
                     document.getElementById("valorTotal").innerHTML = "Valor total: R$ " + valor;
                 }
             }
